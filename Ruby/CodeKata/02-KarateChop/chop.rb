@@ -1,23 +1,26 @@
 
+NOT_FOUND = -1
+
 def chop(match, ordered_array)
 
-  return -1                                   if ordered_array.size == 0
-  return (match == ordered_array[0] ? 0 : -1) if ordered_array.size == 1
+  case ordered_array.size
+  when 0; return NOT_FOUND
+  when 1; return (match == ordered_array[0] ? 0 : NOT_FOUND)
+  end
 
   middle = ordered_array.size / 2
 
   if ordered_array[middle] == match
     middle
 
-  elsif ordered_array[middle] > match
+  elsif match < ordered_array[middle]
     chop(match, ordered_array[0..middle-1])
 
   else
-    top_first  = middle + 1
-    top_last   = ordered_array.size
-    top_result = chop(match, ordered_array[top_first..top_last])
+    start, finish = middle + 1, ordered_array.size
+    top_result    = chop(match, ordered_array[start..finish])
 
-    top_result == -1 ? -1 : top_first + top_result
+    top_result == NOT_FOUND ? NOT_FOUND : start + top_result
   end
 
 end
