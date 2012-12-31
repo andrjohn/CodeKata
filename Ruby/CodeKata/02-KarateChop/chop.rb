@@ -6,11 +6,10 @@ def chop(match, ordered_array)
 
   middle = ordered_array.size / 2
 
-  case
-  when ordered_array[middle] == match
+  if ordered_array[middle] == match
     middle
 
-  when ordered_array[middle] > match
+  elsif ordered_array[middle] > match
     chop(match, ordered_array[0..middle-1])
 
   else
